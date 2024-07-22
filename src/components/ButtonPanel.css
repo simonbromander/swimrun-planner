@@ -1,0 +1,56 @@
+.button-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.button-highlight {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.button-secondary {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.button-primary {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.button-primary:hover, .button-highlight:hover, .button-secondary:hover {
+  opacity: 0.8;
+}
+
+.distances {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.distance-highlight {
+  font-weight: bold;
+  color: #007bff;
+}
