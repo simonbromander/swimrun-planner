@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A SWIMRUN app",
   "main": "index.js",
-  "homepage": "https://github.com/simonbromander/swimrun-planner",
+  "homepage": "https://simonbromander.github.io/swimrun-planner",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
