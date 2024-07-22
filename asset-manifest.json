@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/swimrun-planner/static/css/main.3ec4566c.chunk.css",
+    "main.js": "/swimrun-planner/static/js/main.85eb4649.chunk.js",
+    "main.js.map": "/swimrun-planner/static/js/main.85eb4649.chunk.js.map",
+    "runtime-main.js": "/swimrun-planner/static/js/runtime-main.3ca018af.js",
+    "runtime-main.js.map": "/swimrun-planner/static/js/runtime-main.3ca018af.js.map",
+    "static/css/2.a084d42a.chunk.css": "/swimrun-planner/static/css/2.a084d42a.chunk.css",
+    "static/js/2.76a4f633.chunk.js": "/swimrun-planner/static/js/2.76a4f633.chunk.js",
+    "static/js/2.76a4f633.chunk.js.map": "/swimrun-planner/static/js/2.76a4f633.chunk.js.map",
+    "index.html": "/swimrun-planner/index.html",
+    "static/css/2.a084d42a.chunk.css.map": "/swimrun-planner/static/css/2.a084d42a.chunk.css.map",
+    "static/css/main.3ec4566c.chunk.css.map": "/swimrun-planner/static/css/main.3ec4566c.chunk.css.map",
+    "static/js/2.76a4f633.chunk.js.LICENSE.txt": "/swimrun-planner/static/js/2.76a4f633.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3ca018af.js",
+    "static/css/2.a084d42a.chunk.css",
+    "static/js/2.76a4f633.chunk.js",
+    "static/css/main.3ec4566c.chunk.css",
+    "static/js/main.85eb4649.chunk.js"
+  ]
+}
