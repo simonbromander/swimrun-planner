@@ -13,14 +13,14 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@turf/turf": "^6.5.0",
-    "cross-env": "^7.0.3",
     "leaflet": "^1.7.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-leaflet": "^2.7.0",
     "react-leaflet-search": "^2.0.1",
-    "react-scripts": "4.0.3"
+    "react-scripts": "4.0.3",
+    "@turf/turf": "^6.5.0",
+    "cross-env": "^7.0.3"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.14.5",
