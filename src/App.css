@@ -13,79 +13,44 @@
   height: 70%;
 }
 
-@media (min-width: 768px) {
-  .map-container {a.App {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f8f9fa;
-  }
-  
-  .map-container {
-    flex: 1;
-    width: 100%;
-    height: 70%;
-    max-height: 700px;
-    max-width: 1000px;
-    margin: 20px auto;
-    border: 2px solid #ccc;
-  }
-  
-  @media (min-width: 768px) {
-    .map-container {
-      height: 80%;
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .map-container {
-      height: 90%;
-    }
-  }
-  
-  .distances {
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  
-  .distance-highlight {
-    font-weight: bold;
-    color: #007bff;
-  }
-  
-  .find-location-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    z-index: 1000;
-  }
-  
-  .find-location-btn:hover {
-    background-color: #f0f0f0;
-  }
-    height: 80%;
-  }
+.button-panel {
+  margin: 10px;
 }
 
-@media (min-width: 1024px) {
-  .map-container {
-    height: 90%;
-  }
+.button-row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.button-highlight, .button-primary, .button-secondary {
+  padding: 10px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-highlight {
+  background-color: #007bff;
+  color: white;
+}
+
+.button-primary {
+  background-color: #28a745;
+  color: white;
+}
+
+.button-secondary {
+  background-color: #6c757d;
+  color: white;
 }
 
 .distances {
-  margin-bottom: 10px;
-  text-align: center;
+  text-align: left;
+  margin: 10px;
 }
 
 .distance-highlight {
   font-weight: bold;
-  color: #007bff;
 }

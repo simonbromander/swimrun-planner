@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './ButtonPanel.css';
 
-const ButtonPanel = ({ onFindLocation, setMode, distances, currentPolylineDistance, lastPointDistance, clearRoute }) => {
+const ButtonPanel = ({ onFindLocation, setMode, distances, currentPolylineDistance, lastPointDistance, clearRoute, undoLastPoint }) => {
   return (
     <div className="button-panel">
       <div className="button-row">
@@ -13,6 +13,7 @@ const ButtonPanel = ({ onFindLocation, setMode, distances, currentPolylineDistan
       <div className="button-row">
         <button className="button-primary" onClick={onFindLocation}>📍 Find my location</button>
         <button className="button-secondary" onClick={clearRoute}>🗑️ Clear Route</button>
+        <button className="button-secondary" onClick={undoLastPoint}>↩️ Undo</button>
       </div>
       <div className="distances">
         <p>Swim: <span className="distance-highlight">{distances.swim.toFixed(2)} km</span></p>
@@ -34,6 +35,7 @@ ButtonPanel.propTypes = {
   currentPolylineDistance: PropTypes.number.isRequired,
   lastPointDistance: PropTypes.number.isRequired,
   clearRoute: PropTypes.func.isRequired,
+  undoLastPoint: PropTypes.func.isRequired,
 };
 
 ButtonPanel.defaultProps = {

@@ -3,6 +3,9 @@ import MapComponent from './components/MapComponent';
 import ButtonPanel from './components/ButtonPanel';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
+import * as turf from '@turf/turf';
+import landPolygons from './data/land_polygons.json';
+import waterPolygons from './data/water_polygons.json';
 
 function App() {
   const mapRef = React.useRef();
@@ -29,9 +32,57 @@ function App() {
     }
   };
 
+  const checkIfOnLand = (lat, lng) => {
+    const point = turf.point([lng, lat]);
+
+    for (const polygon of landPolygons.features) {
+      if (turf.booleanPointInPolygon(point, polygon)) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  const checkIfOnWater = (lat, lng) => {
+    const point = turf.point([lng, lat]);
+
+    for (const polygon of waterPolygons.features) {
+      if (turf.booleanPointInPolygon(point, polygon)) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  const determinePolylineType = (lat1, lon1, lat2, lon2) => {
+    const isStartOnLand = checkIfOnLand(lat1, lon1);
+    const isEndOnLand = checkIfOnLand(lat2, lon2);
+
+    if (isStartOnLand && isEndOnLand) {
+      return 'run';
+    }
+
+    const isStartOnWater = checkIfOnWater(lat1, lon1);
+    const isEndOnWater = checkIfOnWater(lat2, lon2);
+
+    if (isStartOnWater && isEndOnWater) {
+      return 'swim';
+    }
+
+    return 'unknown';
+  };
+
   const handleMapClick = (e) => {
     const { lat, lng } = e.latlng;
     const newMarker = { lat, lng, type: mode };
+
+    if (route.length > 0) {
+      const lastMarker = route[route.length - 1];
+      const polylineType = determinePolylineType(lastMarker.lat, lastMarker.lng, lat, lng);
+      newMarker.type = polylineType;
+    }
 
     if (editingIndex !== null) {
       const updatedMarkers = [...markers];
@@ -42,21 +93,14 @@ function App() {
       setRoute(updatedRoute);
       setEditingIndex(null);
     } else {
-      if (mode === 'stop') {
+      if (route.length === 0) {
+        setMarkers([{ ...newMarker, type: 'start' }, newMarker]);
+        setRoute([newMarker]);
+      } else {
         setMarkers([...markers, newMarker]);
         setRoute([...route, newMarker]);
-        setCurrentPolylineDistance(0); // Reset current polyline distance when stopping
-        setLastPointDistance(0); // Reset last point distance when stopping
-      } else if (mode === 'swim' || mode === 'run') {
-        if (route.length === 0) {
-          setMarkers([{ ...newMarker, type: 'start' }, newMarker]);
-          setRoute([newMarker]);
-        } else {
-          setMarkers([...markers, newMarker]);
-          setRoute([...route, newMarker]);
-        }
-        calculateDistance(newMarker);
       }
+      calculateDistance(newMarker);
     }
   };
 
@@ -67,9 +111,9 @@ function App() {
       setCurrentPolylineDistance((prev) => prev + distance); // Update current polyline distance
       setLastPointDistance(distance); // Update last point distance
 
-      if (mode === 'swim') {
+      if (newMarker.type === 'swim') {
         setDistances((prev) => ({ ...prev, swim: prev.swim + distance }));
-      } else if (mode === 'run') {
+      } else if (newMarker.type === 'run') {
         setDistances((prev) => ({ ...prev, run: prev.run + distance }));
       }
     }
@@ -94,6 +138,29 @@ function App() {
     setDistances({ swim: 0, run: 0 });
     setCurrentPolylineDistance(0); // Reset current polyline distance when clearing
     setLastPointDistance(0); // Reset last point distance when clearing
+  };
+
+  const undoLastPoint = () => {
+    if (markers.length > 1) {
+      const updatedMarkers = markers.slice(0, -1);
+      const updatedRoute = route.slice(0, -1);
+      const lastMarker = markers[markers.length - 1];
+      const secondLastMarker = markers[markers.length - 2];
+      const distance = getDistance(secondLastMarker.lat, secondLastMarker.lng, lastMarker.lat, lastMarker.lng);
+
+      setMarkers(updatedMarkers);
+      setRoute(updatedRoute);
+
+      if (lastMarker.type === 'swim') {
+        setDistances((prev) => ({ ...prev, swim: prev.swim - distance }));
+      } else if (lastMarker.type === 'run') {
+        setDistances((prev) => ({ ...prev, run: prev.run - distance }));
+      }
+      setCurrentPolylineDistance((prev) => prev - distance);
+      setLastPointDistance(0); // Reset last point distance when undoing
+    } else {
+      clearRoute();
+    }
   };
 
   const handleMarkerClick = (index) => {
@@ -162,6 +229,7 @@ function App() {
         currentPolylineDistance={currentPolylineDistance} // Pass current polyline distance
         lastPointDistance={lastPointDistance} // Pass last point distance
         onFindLocation={handleFindLocation}
+        undoLastPoint={undoLastPoint}
       />
     </div>
   );
